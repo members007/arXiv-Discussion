@@ -1,0 +1,34 @@
+<div class="main posts-new">
+  <div class="container">
+    <h1 class="form-heading"></h1>
+        <div class="form">
+          <% @post.errors.full_messages.each do |message| %>
+            <div class="form-error">
+              <%= message %>
+            </div>
+          <% end %>
+          <div class="form-body">
+              <%= form_tag("/posts/create") do %>
+                <p>year</p>
+                  <input name = "year" value="<%= @post.year%>">  
+                <p>no</p>
+                  <input name = "no" value="<%= @post.no%>">
+                <p>content</p>
+                <!--
+                <textarea name = "content"><%= @post.content %></textarea>
+                
+                <input type="text" id="name" name="content"/>
+                -->
+<textarea id="editor" name="content" rows="8" cols="40" value="<%= @post.content%>"></textarea>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+        <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+        <script>
+            var simplemde = new SimpleMDE({ element: document.getElementById("editor") });
+        </script>
+
+                <input type="submit" value="投稿">
+              <%end%>
+          </div>
+        </div>
+  </div>
+</div>

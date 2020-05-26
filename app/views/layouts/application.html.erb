@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Book</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+ 
+      <div class="header-logo">
+        <!--<%= link_to("arXiv Forum","/")%>-->
+        <%= link_to image_tag("/arxiv.png"), "/" %>
+      </div>
+      <ul class="header-menus">
+        <li>
+          <%= link_to("arXiv Forum","/about")%>
+        </li>
+        <% if session[:user_id]%>
+        <div class="prof">
+          <%= link_to image_tag("/user_images/#{@current_user.image_name}"), "/users/#{@current_user.id}" %>
+        </div>
+        <!--
+        <li>
+          <%= link_to("投稿一覧","/posts/index")%>
+        </li>
+        <li>
+          <%= link_to("user 一覧","/users/index")%>
+        </li>
+        <li>
+          現在ログインしているuser
+          <%= session[:user_id] %>
+        </li>
+        -->
+        <li>
+          <%= link_to("write","/posts/new")%>
+        </li>
+        <li>
+          <%= link_to("signout","/logout", {method: "post"})%>
+        </li>
+        
+        <%else%>
+        <li class= "signup">
+          <%= link_to("signup","/signup")%>
+        </li>
+        <li>
+          <%= link_to("login","/login")%>
+        </li>
+        <%end%>
+      </ul>
+      
+      <div class="search-body">
+              <%= form_tag("/posts/search") do %>
+        
+        <div class = "search-year">
+          year
+            <input name = "year">  
+        </div>
+        <div class = "search-no">
+          no
+            <input name = "no">
+        </div>
+        <div class = "search-button">
+          <input type="submit" value="検索">
+        </div>
+        <%end%>
+      </div>
+    </header>
+    <% if %>
+      <div class="flash">
+        <%= flash[:notice]%>        
+      </div>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>

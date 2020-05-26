@@ -1,0 +1,26 @@
+<div class="main posts-index">
+  <div class="container">
+    <% @posts.each do |post| %>   
+        <div class = "post">
+          <div class= "prof">
+           <%= link_to image_tag("/user_images/#{post.user.image_name}"), "/users/#{post.user.id}" %>
+          </div>
+          <div class = "title">
+            <p>
+              <%= link_to("title", "/posts/#{post.id}")%>
+            </p>
+          </div>
+          <div class="author">
+              by <%= post.user.name %>
+          </div>
+          <div class="created_at">
+              <%= post.created_at%>
+          </div>
+          <div class="likes">
+            ▲<%= post.count%>
+          </div>
+        </div>
+        
+    <%end%>
+   </div>
+</div>

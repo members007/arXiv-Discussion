@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script src="https://cdn.rawgit.com/chjj/marked/master/marked.min.js"></script>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Marked in the browser</title>
+</head>
+<body>
+  <div class="main posts-show">
+    <div class="container">
+      <div class="posts-show-item">
+        <div class = "post-prof">
+          <%= link_to image_tag("/user_images/#{@current_user.image_name}"), "/users/#{@current_user.id}" %>
+            <div class="prof-name">
+              <%= @post.user.name%>
+            </div>
+        </div>
+        <div class ="post-container">
+          <div class= "post-header">
+            <div class = "title">
+              title
+            </div>
+            <div class = "created-at">
+              <%= @post.created_at%>
+            </div>
+
+            <div class = "votes">
+                <% if @current_user%>
+                  <% if !(Like.find_by(user_id: @current_user.id, post_id: params[:id]))%>
+                    <div class = "like">
+                      <%= link_to("△", "/likes/#{@post.id}/create",{method:"post"})%>
+                    </div>
+                    <div class="like-count">
+                      <%= @post.count%>
+                    </div>
+                    <div class="unlike">
+                      ▽
+                    </div>
+                  <%else%>
+                    <div class = "like">
+                      <%= link_to("△", "/likes/#{@post.id}/create",{method:"post"})%>
+                    </div>
+                    <div class="like-count">
+                      <%= @post.count%>
+                    </div>
+                    <div class="unlike">
+                      <% if Like.find_by(user_id: @current_user.id, post_id: params[:id])%>
+                        <%= link_to("▽", "/likes/#{@post.id}/destroy",{method:"post"})%>
+                      <%end%>
+                    </div>
+                  <%end%>
+                <%end%>
+            </div>
+          </div>
+          <div class="contents">
+          <!--markdown-->
+            <div id="mdrender"></div>
+            <div id="mdraw" style="display:none;">
+<%= @post.content%>
+            </div>
+            <script>
+              document.getElementById("mdrender").innerHTML = marked(document.getElementById("mdraw").innerHTML);
+            </script>
+          </div>
+        </div>  
+        <div class="add-comment">
+          <button class = "add-comment-button">
+            <%= link_to("add reply", "/replies/#{@post.id}/new") %>
+          </button>
+        </div>
+        <div class = "reply-container">
+          <% @replies.each do |reply| %>
+            <div class="reply">
+              <div class="reply-header">
+                <div class="reply-prof">
+                  <%= link_to image_tag("/user_images/#{reply.user.image_name}"), "/users/#{reply.user.id}" %>
+                </div>
+                <div class="reply-name">
+                  <%= link_to(reply.user.name, "/users/#{reply.user.id}")%>
+                </div>
+              </div>
+              <div class="reply-content">
+              <!--
+                <div id="mdrender2"></div>
+                <div id="mdraw2" style="display:none;">
+<%= reply.content%>
+                </div>
+                <script>
+                  document.getElementById("mdrender2").innerHTML = marked(document.getElementById("mdraw2").innerHTML);
+                </script>
+              -->
+              <%= reply.content%>
+              </div>
+            </div>
+          <%end%>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+        
+<!--        <% if @current_user%>
+          <% if @current_user.id == @post.user.id %>
+            <div class="post-menus">
+                <%= link_to("編集", "/posts/#{@post.id}/edit") %>
+                <%= link_to("削除", "/posts/#{@post.id}/destroy", {method:"post"}) %>
+            </div>
+          <%end%>
+        <%end%>
+-->
+     

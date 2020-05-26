@@ -1,0 +1,18 @@
+<div class="main users-new">
+  <div class="container">
+    <h1 class="form-heading">Change avatar</h1>
+    <div class="form">
+      <% @user.errors.full_messages.each do |message| %>
+        <div class="form-error">
+          <%= message %>
+        </div>
+      <% end %>
+      <div class="form-body">
+        <%=form_tag("/users/#{@user.id}/update", {multipart: true}) do %>
+            <input name="image" type="file">
+            <input type="submit" value="save">
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>

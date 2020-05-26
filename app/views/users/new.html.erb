@@ -1,0 +1,28 @@
+<div class="main users-new">
+  <div class="container">
+    <div class="form-heading">arXiv Forum</div>
+    <div class="form users-form">
+      <div class="form-body">
+        <% @user.errors.full_messages.each do |message| %>
+            <div class="form-error">
+                <%= message %>
+            </div>
+        <% end %>
+        <div class="form-title">
+        Register
+        </div>
+        <%= form_tag("/users/create") do %>  
+            <p>Email adress</p>
+                <input name = "email" value = "<%= @user.email%>">
+            <p>Password (min 7 chars)</p>
+                <input name = "password" value = "<%= @user.password%>" type="password">
+            <p>Full name (displayed)</p>
+                <input name = "name" value = "<%= @user.name%>">
+            <p>bio</p>
+                <textarea name = "bio"><%= @user.bio%></textarea>
+            <input type="submit" value="Next">
+        <%end%>      
+      </div>
+    </div>
+  </div>
+</div>
