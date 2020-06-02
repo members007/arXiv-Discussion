@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :home
   root 'home#about'
   get 'replies/index'
   get 'replies/:post_id/new' => "replies#new"
