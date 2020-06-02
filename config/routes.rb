@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :home
+  root 'home#about'
   get 'replies/index'
   get 'replies/:post_id/new' => "replies#new"
   post 'replies/:post_id/create' => "replies#create"
