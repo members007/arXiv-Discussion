@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: 'home#index'
   get 'replies/index'
   get 'replies/:post_id/new' => "replies#new"
   post 'replies/:post_id/create' => "replies#create"
